@@ -5,6 +5,8 @@
   import { onMount } from "svelte";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
   import * as THREE from "three";
+  import { InteractionManager } from "three.interactive";
+
   onMount(async () => {
     const ARnft = (await import("@webarkit/ar-nft")).default;
     const ARnftThreejs = (await import("@webarkit/arnft-threejs")).default;
@@ -53,6 +55,13 @@
 
           const renderer = sceneThreejs.getRenderer();
           const scene = sceneThreejs.getScene();
+
+          const interactionManager = new InteractionManager(
+            renderer,
+            sceneThreejs.getCamera(),
+            renderer.domElement
+          );
+
           renderer.outputEncoding = THREE.sRGBEncoding;
           renderer.physicallyCorrectLights = true;
           let directionalLight = new THREE.DirectionalLight("#fff", 0.4);
@@ -66,6 +75,11 @@
           let loged = false;
           function modelAnimation(gltf) {
             var model = gltf.scene.children[0];
+
+            interactionManager.add(model);
+            model.addEventListener("click", () => {
+              console.log("Cliked On COin");
+            });
             if (!loged) {
               console.log(model);
               loged = true;
@@ -95,6 +109,7 @@
           );
 
           const tick = () => {
+            interactionManager.update();
             sceneThreejs.draw();
             window.requestAnimationFrame(tick);
             updateAnimations();

@@ -27,6 +27,8 @@
   "dependencies": {
     "@webarkit/ar-nft": "^0.14.5",
     "@webarkit/arnft-threejs": "^0.4.7",
-    "three": "^0.157.0"
+    "mind-ar": "^1.2.3",
+    "three": "^0.157.0",
+    "three.interactive": "^1.7.0"
   }
 }
