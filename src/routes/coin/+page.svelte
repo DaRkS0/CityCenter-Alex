@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
   import * as THREE from "three";
-  import { InteractionManager } from "three.interactive";
+  import { InteractionManager } from "$lib/Interactive";
   let Cliked = false;
   onMount(async () => {
     const ARnft = (await import("@webarkit/ar-nft")).default;
