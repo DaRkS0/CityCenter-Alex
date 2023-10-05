@@ -6,7 +6,7 @@
   // import ARnftThreejs from "@webarkit/arnft-threejs";
   import * as THREE from "three";
   import { InteractionManager } from "three.interactive";
-
+  let Cliked = false;
   onMount(async () => {
     const ARnft = (await import("@webarkit/ar-nft")).default;
     const ARnftThreejs = (await import("@webarkit/arnft-threejs")).default;
@@ -79,6 +79,10 @@
             interactionManager.add(model);
             model.addEventListener("click", () => {
               console.log("Cliked On COin");
+              Cliked = true;
+              setTimeout(() => {
+                Cliked = false;
+              }, 2000);
             });
             if (!loged) {
               console.log(model);
@@ -130,3 +134,11 @@
 >
   🖼 Marker Image
 </a>
+
+<div
+  class="absolute z-50 inset-0 flex flex-col justify-center items-center pointer-events-none"
+>
+  <p class:hidden={!Cliked} class="text-5xl font-bold pointer-events-none">
+    Clicked
+  </p>
+</div>
