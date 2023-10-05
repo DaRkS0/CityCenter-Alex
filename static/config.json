@@ -16,12 +16,12 @@
       "max": 600
     },
     "facingMode": "environment",
-    "targetFrameRate" : 30
+    "targetFrameRate": 30
   },
   "loading": {
     "create": true,
     "logo": {
-      "src": "examples/Data/arNFT-logo.gif",
+      "src": "examples/Data/CC.png",
       "alt": "arNFT.js logo"
     },
     "loadingMessage": "Loading, please wait..."

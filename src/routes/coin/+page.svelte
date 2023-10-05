@@ -19,7 +19,7 @@
       [["examples/DataNFT/pinball"]],
       [["pinball"]],
       "config.json",
-      true
+      false
     )
       .then((nft) => {
         document.addEventListener("containerEvent", function (ev) {
