@@ -1,9 +1,6 @@
 <script>
   // @ts-nocheck
-
-  // import ARnft from "@webarkit/ar-nft";
   import { onMount } from "svelte";
-  // import ARnftThreejs from "@webarkit/arnft-threejs";
   import * as THREE from "three";
   onMount(async () => {
     const ARnft = (await import("@webarkit/ar-nft")).default;
@@ -16,7 +13,7 @@
       height,
       [["examples/DataNFT/pinball"]],
       [["pinball"]],
-      "config.json",
+      "config_brave_robot.json",
       true
     )
       .then((nft) => {
@@ -53,7 +50,7 @@
 
           const renderer = sceneThreejs.getRenderer();
           const scene = sceneThreejs.getScene();
-          renderer.outputEncoding = THREE.sRGBEncoding;
+          renderer.outputEncoding = THREE.SRGBColorSpace;
           renderer.physicallyCorrectLights = true;
           let directionalLight = new THREE.DirectionalLight("#fff", 0.4);
           directionalLight.position.set(0.5, 0, 0.866);
