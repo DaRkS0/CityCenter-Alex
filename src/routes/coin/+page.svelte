@@ -2,7 +2,6 @@
   // @ts-nocheck
 
   // import ARnft from "@webarkit/ar-nft";
-  import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 
   import { onMount } from "svelte";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
@@ -18,8 +17,8 @@
     ARnft.ARnft.init(
       width,
       height,
-      [["examples/DataNFT/pinball"]],
-      [["pinball"]],
+      [["examples/DataNFT/CC"]],
+      [["CC"]],
       "config.json",
       false
     )
@@ -109,7 +108,7 @@
           }
           nftAddTJS.addModelWithCallback(
             "examples/Data/models/flamingo/gold_coin.glb",
-            "pinball",
+            "CC",
             modelAnimation,
             false
           );
