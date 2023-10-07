@@ -4,7 +4,7 @@
   // import ARnft from "@webarkit/ar-nft";
   import * as THREE from "three";
   //import { MindARThree } from "$libs/Mind-Ar/image-target";
-  import { MindARThree } from "$lib/Mind-Ar/mindar-image-three.prod.cjs";
+  import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { onMount } from "svelte";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
 
@@ -30,22 +30,24 @@
         renderer.render(scene, camera);
       });
     };
-    const startButton = document.querySelector("#startButton");
-    const stopButton = document.querySelector("#stopButton");
+    // const startButton = document.querySelector("#startButton");
+    // const stopButton = document.querySelector("#stopButton");
 
-    startButton.addEventListener("click", () => {
-      start();
-    });
-    stopButton.addEventListener("click", () => {
-      mindarThree.stop();
-      mindarThree.renderer.setAnimationLoop(null);
-    });
+    // startButton.addEventListener("click", () => {
+    //   start();
+    // });
+    // stopButton.addEventListener("click", () => {
+    //   mindarThree.stop();
+    //   mindarThree.renderer.setAnimationLoop(null);
+    // });
+
+    start();
   });
 </script>
 
 <div id="control">
-  <button id="startButton">Start</button>
-  <button id="stopButton">Stop</button>
+  <!-- <button id="startButton">Start</button>
+  <button id="stopButton">Stop</button> -->
 </div>
 <div id="container" />
 
