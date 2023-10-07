@@ -2,21 +2,44 @@
   // @ts-nocheck
 
   // import ARnft from "@webarkit/ar-nft";
-
+  import * as THREE from "three";
+  //import { MindARThree } from "$libs/Mind-Ar/image-target";
+  import { MindARThree } from "$lib/Mind-Ar/mindar-image-three.prod.cjs";
   import { onMount } from "svelte";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
 
   onMount(async () => {
-    if ("xr" in window.navigator) {
-      console.log({ xr: navigator.xr });
-      const session = await navigator.xr.requestSession("immersive-ar", {
-        requiredFeatures: ["image-tracking"],
+    const mindarThree = new MindARThree({
+      container: document.querySelector("#container"),
+      imageTargetSrc:
+        "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind",
+    });
+    const { renderer, scene, camera } = mindarThree;
+    const anchor = mindarThree.addAnchor(0);
+    const geometry = new THREE.PlaneGeometry(1, 0.55);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x00ffff,
+      transparent: true,
+      opacity: 0.5,
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    anchor.group.add(plane);
+    const start = async () => {
+      await mindarThree.start();
+      renderer.setAnimationLoop(() => {
+        renderer.render(scene, camera);
       });
-      /* WebXR can be used! */
-    } else {
-      console.log("WebXR isn't available");
-      /* WebXR isn't available */
-    }
+    };
+    const startButton = document.querySelector("#startButton");
+    const stopButton = document.querySelector("#stopButton");
+
+    startButton.addEventListener("click", () => {
+      start();
+    });
+    stopButton.addEventListener("click", () => {
+      mindarThree.stop();
+      mindarThree.renderer.setAnimationLoop(null);
+    });
   });
 </script>
 
@@ -27,9 +50,6 @@
 <div id="container" />
 
 <style>
-  body {
-    margin: 0;
-  }
   #container {
     width: 100vw;
     height: 100vh;
