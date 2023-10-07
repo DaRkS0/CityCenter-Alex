@@ -17,8 +17,8 @@
     ARnft.ARnft.init(
       width,
       height,
-      [["examples/DataNFT/CC"]],
-      [["CC"]],
+      [["examples/DataNFT/pinball"]],
+      [["pinball"]],
       "config.json",
       false
     )
@@ -108,7 +108,7 @@
           }
           nftAddTJS.addModelWithCallback(
             "examples/Data/models/flamingo/gold_coin.glb",
-            "CC",
+            "pinball",
             modelAnimation,
             false
           );
