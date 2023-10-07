@@ -10,7 +10,7 @@
 
   onMount(async () => {
     const mindarThree = new MindARThree({
-      container: document.querySelector("#container"),
+      container: document.body,
       imageTargetSrc:
         "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind",
     });
