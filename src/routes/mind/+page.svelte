@@ -3,7 +3,13 @@
   import * as THREE from "three";
   import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { onMount } from "svelte";
-  import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
+  import {
+    LoadGLTF,
+    InteractionManager,
+    CreateMixer,
+    ColorGUIHelper,
+  } from "$lib";
+  import GUI from "lil-gui";
 
   onMount(async () => {
     const mindarThree = new MindARThree({
@@ -13,7 +19,6 @@
       maxTrack: 3,
     });
     const { renderer, scene, camera } = mindarThree;
-    const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
 
     const Coinanchor = mindarThree.addAnchor(0);
     const Bearanchor = mindarThree.addAnchor(1);
@@ -24,15 +29,26 @@
       camera,
       renderer.domElement
     );
-    scene.add(light);
+    // const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
 
-    let directionalLight = new THREE.DirectionalLight("#fff", 0.4);
+    // scene.add(light);
+
+    const light = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(light);
+    const gui = new GUI();
+    gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+    gui.add(light, "intensity", 0, 2, 0.01);
+    let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
 
-    const Coinangltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
-    Coinangltf.scene.scale.set(0.1, 0.1, 0.1);
-    Coinangltf.scene.position.set(0, -0.4, 0);
+    const Coinangltf = await LoadGLTF(
+      "examples/Data/models/gold-bar/untitled.gltf"
+    );
+    //  Coinangltf.scene.rotateX(Math.PI / 2);
+    // Coinangltf.scene.rotateY(Math.PI / 2);
+    //Coinangltf.scene.scale.set(1, 5, 1, 5, 0.1);
+    // Coinangltf.scene.position.set(0, -0.4, 0);
     Coinanchor.group.add(Coinangltf.scene);
 
     const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
@@ -53,7 +69,7 @@
     // Coinanchor
     let clock = new THREE.Clock();
     let mixers = [];
-    mixers.push(await CreateMixer(Coinangltf));
+    // mixers.push(await CreateMixer(Coinangltf));
     mixers.push(await CreateMixer(Beargltf));
     mixers.push(await CreateMixer(Racoongltf));
 

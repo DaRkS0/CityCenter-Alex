@@ -14,6 +14,7 @@
     "@sveltejs/kit": "^1.20.4",
     "@types/three": "^0.156.0",
     "autoprefixer": "^10.4.14",
+    "lil-gui": "^0.18.2",
     "postcss": "^8.4.24",
     "postcss-load-config": "^4.0.1",
     "svelte": "^4.0.5",
