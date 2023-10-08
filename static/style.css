@@ -137,3 +137,6 @@
   #arvideo {
     display: none;
   }
+html,body{
+  height: 100%;
+}
