@@ -1,13 +1,9 @@
 <script>
   // @ts-nocheck
-
-  // import ARnft from "@webarkit/ar-nft";
   import * as THREE from "three";
-  //import { MindARThree } from "$libs/Mind-Ar/image-target";
   import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { onMount } from "svelte";
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
-  // import ARnftThreejs from "@webarkit/arnft-threejs";
 
   onMount(async () => {
     const mindarThree = new MindARThree({
@@ -17,15 +13,11 @@
     });
     const { renderer, scene, camera } = mindarThree;
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-    const anchor = mindarThree.addAnchor(0);
-    const Coinanchor = mindarThree.addAnchor(1);
 
-    const geometry = new THREE.PlaneGeometry(1, 0.55);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x00ffff,
-      transparent: true,
-      opacity: 0.5,
-    });
+    const Coinanchor = mindarThree.addAnchor(0);
+    const Bearanchor = mindarThree.addAnchor(1);
+    const Racoonanchor = mindarThree.addAnchor(2);
+
     const interactionManager = new InteractionManager(
       renderer,
       camera,
@@ -37,41 +29,43 @@
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
 
-    const plane = new THREE.Mesh(geometry, material);
-    //anchor.group.add(plane);
-    const gltf = await LoadGLTF("examples/Data/models/raccoon/scene.gltf");
-
-    //const gltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
-    console.log(gltf);
-    // gltf.scene.rotateX(Math.PI / 2);
-    // gltf.scene.rotateY(Math.PI * 1.5);
-    gltf.scene.scale.set(0.1, 0.1, 0.1);
-    gltf.scene.position.set(0, -0.4, 0);
-    //gltf.scene.position.set(0, 0, -30);
-
     const Coinangltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
     Coinangltf.scene.scale.set(0.1, 0.1, 0.1);
     Coinangltf.scene.position.set(0, -0.4, 0);
-
     Coinanchor.group.add(Coinangltf.scene);
-    anchor.group.add(gltf.scene);
+
+    const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
+    Beargltf.scene.scale.set(0.1, 0.1, 0.1);
+    Beargltf.scene.position.set(0, -0.4, 0);
+    Bearanchor.group.add(Beargltf.scene);
+
+    const Racoongltf = await LoadGLTF(
+      "examples/Data/models/raccoon/scene.gltf"
+    );
+    Racoongltf.scene.scale.set(0.1, 0.1, 0.1);
+    Racoongltf.scene.position.set(0, -0.4, 0);
+    Racoonanchor.group.add(Racoongltf.scene);
+
+    // gltf.scene.rotateX(Math.PI / 2);
+    // gltf.scene.rotateY(Math.PI * 1.5);
 
     // Coinanchor
     let clock = new THREE.Clock();
-    const model = gltf.scene.children[0];
     let mixers = [];
-    mixers.push(await CreateMixer(gltf));
     mixers.push(await CreateMixer(Coinangltf));
+    mixers.push(await CreateMixer(Beargltf));
+    mixers.push(await CreateMixer(Racoongltf));
 
-    console.log(model);
-    interactionManager.add(model);
-    model.addEventListener("click", () => {
-      console.log("Cliked On COin");
-      // Cliked = true;
-      // setTimeout(() => {
-      //   Cliked = false;
-      // }, 2000);
-    });
+    // const model = gltf.scene.children[0];
+    // console.log(model);
+    // interactionManager.add(model);
+    // model.addEventListener("click", () => {
+    //   console.log("Cliked On COin");
+    //   // Cliked = true;
+    //   // setTimeout(() => {
+    //   //   Cliked = false;
+    //   // }, 2000);
+    // });
     const start = async () => {
       await mindarThree.start();
       renderer.setAnimationLoop(() => {
