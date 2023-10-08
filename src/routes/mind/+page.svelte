@@ -13,12 +13,13 @@
     const mindarThree = new MindARThree({
       //container: document.body,
       container: document.querySelector("#container"),
-      imageTargetSrc:
-        "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind",
+      imageTargetSrc: "examples/targets.mind",
     });
     const { renderer, scene, camera } = mindarThree;
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
     const anchor = mindarThree.addAnchor(0);
+    const Coinanchor = mindarThree.addAnchor(0);
+
     const geometry = new THREE.PlaneGeometry(1, 0.55);
     const material = new THREE.MeshBasicMaterial({
       color: 0x00ffff,
@@ -48,6 +49,12 @@
     gltf.scene.position.set(0, -0.4, 0);
     //gltf.scene.position.set(0, 0, -30);
     anchor.group.add(gltf.scene);
+
+    const Coinangltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
+    Coinangltf.scene.scale.set(0.1, 0.1, 0.1);
+    Coinangltf.scene.position.set(0, -0.4, 0);
+    Coinanchor.group.add(Coinangltf.scene);
+    // Coinanchor
     let clock = new THREE.Clock();
     const model = gltf.scene.children[0];
 
