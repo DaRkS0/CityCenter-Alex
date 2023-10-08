@@ -18,7 +18,7 @@
     const { renderer, scene, camera } = mindarThree;
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
     const anchor = mindarThree.addAnchor(0);
-    const Coinanchor = mindarThree.addAnchor(0);
+    const Coinanchor = mindarThree.addAnchor(1);
 
     const geometry = new THREE.PlaneGeometry(1, 0.55);
     const material = new THREE.MeshBasicMaterial({
@@ -48,19 +48,21 @@
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     gltf.scene.position.set(0, -0.4, 0);
     //gltf.scene.position.set(0, 0, -30);
-    anchor.group.add(gltf.scene);
 
     const Coinangltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
     Coinangltf.scene.scale.set(0.1, 0.1, 0.1);
     Coinangltf.scene.position.set(0, -0.4, 0);
+
     Coinanchor.group.add(Coinangltf.scene);
+    anchor.group.add(gltf.scene);
+
     // Coinanchor
     let clock = new THREE.Clock();
     const model = gltf.scene.children[0];
+    let mixers = [];
+    mixers.push(AddToMixer(gltf));
+    mixers.push(AddToMixer(Coinangltf));
 
-    const animation = gltf.animations[0];
-    const mixer = new THREE.AnimationMixer(model);
-    const action = mixer.clipAction(animation);
     console.log(model);
     interactionManager.add(model);
     model.addEventListener("click", () => {
@@ -70,11 +72,12 @@
       //   Cliked = false;
       // }, 2000);
     });
-    action.play();
     const start = async () => {
       await mindarThree.start();
       renderer.setAnimationLoop(() => {
-        mixer.update(clock.getDelta());
+        // mixer.update(clock.getDelta());
+        const Delta = clock.getDelta();
+        mixers.forEach((mixer) => mixer.update(Delta));
         renderer.render(scene, camera);
       });
     };
@@ -91,6 +94,13 @@
 
     start();
   });
+
+  function AddToMixer(gl) {
+    const mixer = new THREE.AnimationMixer(gl.scene.children[0]);
+    const action = mixer.clipAction(gl.animations[0]);
+    action.play();
+    return mixer;
+  }
 </script>
 
 <div
