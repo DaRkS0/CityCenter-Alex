@@ -31,10 +31,16 @@
       renderer.domElement
     );
     scene.add(light);
+
+    let directionalLight = new THREE.DirectionalLight("#fff", 0.4);
+    directionalLight.position.set(0.5, 0, 0.866);
+    scene.add(directionalLight);
+
     const plane = new THREE.Mesh(geometry, material);
     //anchor.group.add(plane);
-
     const gltf = await LoadGLTF("examples/Data/models/raccoon/scene.gltf");
+
+    //const gltf = await LoadGLTF("examples/Data/models/coin/scene.gltf");
     console.log(gltf);
     // gltf.scene.rotateX(Math.PI / 2);
     // gltf.scene.rotateY(Math.PI * 1.5);
@@ -49,6 +55,7 @@
     const mixer = new THREE.AnimationMixer(model);
     const action = mixer.clipAction(animation);
     console.log(model);
+    interactionManager.add(model);
     model.addEventListener("click", () => {
       console.log("Cliked On COin");
       // Cliked = true;
