@@ -78,10 +78,6 @@
   });
 </script>
 
-<div id="control">
-  <!-- <button id="startButton">Start</button>
-  <button id="stopButton">Stop</button> -->
-</div>
 <div id="container" />
 
 <style>
