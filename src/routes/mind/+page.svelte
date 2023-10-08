@@ -11,7 +11,8 @@
 
   onMount(async () => {
     const mindarThree = new MindARThree({
-      container: document.body,
+      //container: document.body,
+      container: document.querySelector("#container"),
       imageTargetSrc:
         "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.2/examples/image-tracking/assets/card-example/card.mind",
     });
@@ -78,10 +79,17 @@
   });
 </script>
 
-<div id="container" />
+<div
+  id="container"
+  class="flex flex-col items-stretch justify-stretch relative w-full h-full overflow-hidden"
+/>
 
 <style>
-  #container {
+  :global(video) {
+    left: 0px !important;
+    right: 0px !important;
+  }
+  /* #container {
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -92,5 +100,5 @@
     top: 0;
     left: 0;
     z-index: 2;
-  }
+  } */
 </style>
