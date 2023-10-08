@@ -10,6 +10,7 @@
       //container: document.body,
       container: document.querySelector("#container"),
       imageTargetSrc: "examples/targets.mind",
+      maxTrack: 3,
     });
     const { renderer, scene, camera } = mindarThree;
     const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
