@@ -86,8 +86,9 @@
 
 <style>
   :global(video) {
-    left: 0px !important;
-    right: 0px !important;
+    /* left: 0px !important;
+    right: 0px !important; */
+    inset: 0 !important;
   }
   /* #container {
     width: 100vw;
