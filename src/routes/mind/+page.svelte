@@ -6,7 +6,7 @@
   //import { MindARThree } from "$libs/Mind-Ar/image-target";
   import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { onMount } from "svelte";
-  import { LoadGLTF, InteractionManager } from "$lib";
+  import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
   // import ARnftThreejs from "@webarkit/arnft-threejs";
 
   onMount(async () => {
@@ -60,8 +60,8 @@
     let clock = new THREE.Clock();
     const model = gltf.scene.children[0];
     let mixers = [];
-    mixers.push(AddToMixer(gltf));
-    mixers.push(AddToMixer(Coinangltf));
+    mixers.push(await CreateMixer(gltf));
+    mixers.push(await CreateMixer(Coinangltf));
 
     console.log(model);
     interactionManager.add(model);
@@ -94,13 +94,6 @@
 
     start();
   });
-
-  function AddToMixer(gl) {
-    const mixer = new THREE.AnimationMixer(gl.scene.children[0]);
-    const action = mixer.clipAction(gl.animations[0]);
-    action.play();
-    return mixer;
-  }
 </script>
 
 <div
