@@ -19,7 +19,6 @@
       maxTrack,
     });
     const { renderer, scene, camera } = mindarThree;
-
     let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
@@ -53,13 +52,24 @@
 
     const start = async () => {
       await mindarThree.start();
+
+      const { video } = mindarThree;
+      if (video) {
+        (video as HTMLVideoElement).style.setProperty(
+          "inset",
+          "0px",
+          "important"
+        );
+        console.log(video);
+      }
+
       renderer.setAnimationLoop(() => {
         const Delta = clock.getDelta();
         mixers.forEach((mixer) => mixer.update(Delta));
         renderer.render(scene, camera);
       });
     };
-    start();
+    await start();
   });
 </script>
 
@@ -68,9 +78,3 @@
   bind:this={container}
   class="flex flex-col items-stretch justify-stretch relative w-full h-full overflow-hidden"
 />
-
-<style>
-  :global(video) {
-    inset: 0 !important;
-  }
-</style>
