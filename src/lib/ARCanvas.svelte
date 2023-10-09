@@ -53,15 +53,15 @@
     const start = async () => {
       await mindarThree.start();
 
-      const { video } = mindarThree;
-      if (video) {
-        (video as HTMLVideoElement).style.setProperty(
-          "inset",
-          "0px",
-          "important"
-        );
-        console.log(video);
-      }
+      // const { video } = mindarThree;
+      // if (video) {
+      //   (video as HTMLVideoElement).style.setProperty(
+      //     "inset",
+      //     "0px",
+      //     "important"
+      //   );
+      //   console.log(video);
+      // }
 
       renderer.setAnimationLoop(() => {
         const Delta = clock.getDelta();
@@ -78,3 +78,9 @@
   bind:this={container}
   class="flex flex-col items-stretch justify-stretch relative w-full h-full overflow-hidden"
 />
+
+<style>
+  :global(#container video) {
+    inset: 0 !important;
+  }
+</style>
