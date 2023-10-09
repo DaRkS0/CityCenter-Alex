@@ -4,7 +4,6 @@
   import { onMount } from "svelte";
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
   import type { AnchorMarker } from "$lib";
-
   export let imageTargetSrc = "";
   export let maxTrack = 1;
   export let anchors: AnchorMarker[];
