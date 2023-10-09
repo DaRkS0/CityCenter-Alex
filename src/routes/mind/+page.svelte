@@ -36,17 +36,21 @@
     const light = new THREE.AmbientLight(0xffffff, 1);
     scene.add(light);
     const gui = new GUI();
-    gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
-    gui.add(light, "intensity", 0, 2, 0.01);
+
+    // gui.addColor(new ColorGUIHelper(light, "color"), "value").name("color");
+    // gui.add(light, "intensity", 0, 2, 0.01);
     let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
-
+    gui
+      .addColor(new ColorGUIHelper(directionalLight, "color"), "value")
+      .name("color");
+    gui.add(directionalLight, "intensity", 0, 2, 0.01);
     const Coinangltf = await LoadGLTF(
       "examples/Data/models/gold-bar/untitled.gltf"
     );
-    //  Coinangltf.scene.rotateX(Math.PI / 2);
-    // Coinangltf.scene.rotateY(Math.PI / 2);
+    Coinangltf.scene.rotateX(Math.PI / 2);
+    Coinangltf.scene.rotateY(Math.PI / 2);
     //Coinangltf.scene.scale.set(1, 5, 1, 5, 0.1);
     // Coinangltf.scene.position.set(0, -0.4, 0);
 
