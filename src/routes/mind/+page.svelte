@@ -27,7 +27,7 @@
     const interactionManager = new InteractionManager(
       renderer,
       camera,
-      renderer.domElement
+      document.querySelector("#container")
     );
     // const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
 
@@ -49,6 +49,13 @@
     // Coinangltf.scene.rotateY(Math.PI / 2);
     //Coinangltf.scene.scale.set(1, 5, 1, 5, 0.1);
     // Coinangltf.scene.position.set(0, -0.4, 0);
+
+    const model = Coinangltf.scene.children[0];
+    interactionManager.add(model);
+    model.addEventListener("click", () => {
+      console.log("Cliked On COin");
+    });
+
     Coinanchor.group.add(Coinangltf.scene);
 
     const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
