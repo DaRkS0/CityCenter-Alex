@@ -43,9 +43,9 @@
 
     <div class="mb-3 w-[70%] mx-auto text-center">
       <button class="relative">
-        <img class="max-w-full" src="img/button.webp" alt="" />
+        <img class="max-w-full" src="img/btn.webp" alt="" />
         <div class="absolute inset-0 w-full h-full flex items-center">
-          <img class="m-auto max-h-[70%]" src="img/submit.webp" alt="" />
+          <img class="m-auto max-h-[55%]" src="img/submit.webp" alt="" />
         </div>
       </button>
     </div>
