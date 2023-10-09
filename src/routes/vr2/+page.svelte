@@ -304,10 +304,17 @@
       document.body.appendChild(VRButton.createButton(renderer));
 
       // controllers
+      const geometry = new THREE.BufferGeometry();
+      geometry.setFromPoints([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0, -5),
+      ]);
       const controller1 = renderer.xr.getController(0);
+      controller1.add(new THREE.Line(geometry));
       scene.add(controller1);
 
       const controller2 = renderer.xr.getController(1);
+      controller2.add(new THREE.Line(geometry));
       scene.add(controller2);
 
       const controllerModelFactory = new XRControllerModelFactory();
