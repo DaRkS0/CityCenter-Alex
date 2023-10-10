@@ -47,24 +47,13 @@
       const model = gltf.scene.children[0];
       interactionManager.add(model);
       model.addEventListener("click", () => {
-        if (a.onclick !== undefined && clickable) a.onclick();
+        if (a.onclick !== undefined && anchor.visible) a.onclick();
       });
       anchor.group.add(gltf.scene);
     });
 
     const start = async () => {
       await mindarThree.start();
-
-      // const { video } = mindarThree;
-      // if (video) {
-      //   (video as HTMLVideoElement).style.setProperty(
-      //     "inset",
-      //     "0px",
-      //     "important"
-      //   );
-      //   console.log(video);
-      // }
-
       renderer.setAnimationLoop(() => {
         const Delta = clock.getDelta();
         mixers.forEach((mixer) => mixer.update(Delta));
