@@ -38,12 +38,11 @@ declare module "mind-ar/dist/mindar-image-three.prod.js" {
      */
     missTolerance?: number;
 
-    userDeviceId?: number;
+    userDeviceId?: string | number;
 
-    environmentDeviceId?: number;
+    environmentDeviceId?: string | number;
   };
 
-  (userDeviceId = null), (environmentDeviceId = null);
   type ARAnchor = {
     group: Group;
     targetIndex: number;
