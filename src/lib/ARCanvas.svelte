@@ -1,5 +1,6 @@
 <script lang="ts">
   import * as THREE from "three";
+  //import type { MindARThree as ARBase } from "$lib/Mind-Ar/mindar-image-three.prod";
   import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { onMount } from "svelte";
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
@@ -10,14 +11,16 @@
   let container: HTMLDivElement;
   let mixers: THREE.AnimationMixer[] = [];
   let clock = new THREE.Clock();
-
+  export let AR: MindARThree | undefined = undefined;
   onMount(async () => {
     const mindarThree = new MindARThree({
       container,
       imageTargetSrc,
       maxTrack,
+      ...$$props,
     });
     const { renderer, scene, camera } = mindarThree;
+    AR = mindarThree;
     let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
