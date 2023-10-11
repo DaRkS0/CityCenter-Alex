@@ -20,6 +20,30 @@ export function CreateMixer(gl: GLTF) {
   });
 }
 
+export function LoadVideo(path: string) {
+  return new Promise<HTMLVideoElement>((resolve) => {
+    const video = document.createElement("video");
+    video.onloadeddata = () => resolve(video);
+    video.crossOrigin = "anonymous";
+    video.src = path;
+  });
+}
+
+export async function CreateVideoObject(path: string, w = 1, h = 1) {
+  return new Promise<{ plane: THREE.Mesh; video: HTMLVideoElement }>(
+    async (resolve) => {
+      const video = await LoadVideo(path);
+      const texture = new THREE.VideoTexture(video);
+      const mat = new THREE.MeshBasicMaterial({ map: texture });
+      const planeGeom = new THREE.PlaneGeometry(w, h);
+      resolve({
+        plane: new THREE.Mesh(planeGeom, mat),
+        video,
+      });
+    }
+  );
+}
+
 export class ColorGUIHelper {
   object: any;
   prop: any;

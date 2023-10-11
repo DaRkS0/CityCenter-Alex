@@ -10,9 +10,10 @@
   let anchors: AnchorMarker[] = [
     {
       animated: false,
-      path: "examples/Data/models/gold-bar/untitled.gltf",
-      onload: modelOne,
-      onclick: () => console.log("Cliked On Bar"),
+      type: "Video",
+      path: "https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4",
+      // onload: modelOne,
+      // onclick: () => console.log("Cliked On Bar"),
     },
     {
       animated: true,
@@ -38,10 +39,10 @@
     gltf.scene.position.set(0, -0.4, 0);
   }
   afterUpdate(() => {
-    console.log(AR);
-    setTimeout(() => {
-      AR.stop();
-    }, 15000);
+    // console.log(AR);
+    // setTimeout(() => {
+    //   AR.stop();
+    // }, 15000);
   });
 </script>
 

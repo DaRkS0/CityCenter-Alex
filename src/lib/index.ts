@@ -8,6 +8,7 @@ export { ColorGUIHelper as ColorGUIHelper } from "$lib/utils";
 export type AnchorMarker = {
   animated: boolean;
   path: string;
+  type?: "Model" | "Video" | "Image";
   onload?: (gltf: GLTF) => void | undefined;
   onclick?: () => void | undefined;
 };

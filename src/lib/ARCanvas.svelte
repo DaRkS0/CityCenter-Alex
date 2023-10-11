@@ -5,6 +5,7 @@
   import { onMount } from "svelte";
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
   import type { AnchorMarker } from "$lib";
+  import { CreateVideoObject } from "./utils";
   export let imageTargetSrc = "";
   export let maxTrack = 1;
   export let anchors: AnchorMarker[];
@@ -34,22 +35,27 @@
 
     anchors.forEach(async (a, id) => {
       const anchor = mindarThree.addAnchor(id);
-      const gltf = await LoadGLTF(a.path);
-      let clickable = false;
-      anchor.onTargetFound = () => (clickable = true);
-      anchor.onTargetLost = () => (clickable = false);
-      if (a.onload !== undefined) a.onload(gltf);
+      if (a.type === "Video") {
+        const obj = await CreateVideoObject(a.path);
+        anchor.group.add(obj.plane);
+        anchor.onTargetFound = () => obj.video.play();
+        anchor.onTargetLost = () => obj.video.pause();
+      } else {
+        const gltf = await LoadGLTF(a.path);
 
-      if (a.animated) {
-        mixers.push(await CreateMixer(gltf));
+        if (a.onload !== undefined) a.onload(gltf);
+
+        if (a.animated) {
+          mixers.push(await CreateMixer(gltf));
+        }
+
+        const model = gltf.scene.children[0];
+        interactionManager.add(model);
+        model.addEventListener("click", () => {
+          if (a.onclick !== undefined && anchor.visible) a.onclick();
+        });
+        anchor.group.add(gltf.scene);
       }
-
-      const model = gltf.scene.children[0];
-      interactionManager.add(model);
-      model.addEventListener("click", () => {
-        if (a.onclick !== undefined && anchor.visible) a.onclick();
-      });
-      anchor.group.add(gltf.scene);
     });
 
     const start = async () => {
