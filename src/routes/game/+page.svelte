@@ -11,6 +11,9 @@
   let Found: number[] = [];
   let barDOne = false;
   let AR: MindARThree;
+  let Timecounter = 60;
+  let Barcounter = 0;
+
   let anchors: AnchorMarker[] = [
     // {
     //   animated: false,
@@ -36,7 +39,7 @@
           const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
           immg.position.set(0, 0, 0.2);
           Coinanchor?.group.add(immg);
-          Found.push(Coinanchor.targetIndex);
+          Found = [...Found, Coinanchor.targetIndex];
         }
       },
     },
@@ -71,19 +74,30 @@
   });
 </script>
 
-<div class=" w-full h-full overflow-hidden">
+<div class:hidden={GameOver} class=" w-full h-full overflow-hidden">
   <ARCanvas
     imageTargetSrc="examples/targets.mind"
     uiScanning="no"
     maxTrack={3}
     {anchors}
-    on:loaded={() => console.log("Ar Ready")}
+    on:loaded={() => {
+      console.log("Ar Ready");
+      const key = setInterval(async () => {
+        if (--Timecounter === 0) {
+          clearInterval(key);
+          await AR.stop();
+          GameOver = true;
+        }
+      }, 1000);
+    }}
     bind:AR
   />
 </div>
 <div
-  class="absolute z-50 inset-0 pointer-events-none w-full h-full overflow-hidden flex flex-col items-center pt-7 px-12"
+  class="absolute z-50 inset-0 pointer-events-none w-full h-full overflow-hidden flex flex-col items-center pt-7 px-12 gap-8"
 >
   <img src="img/title.webp" alt="" />
-  <!-- <img class="my-auto" src="img/hero.webp" alt="" /> -->
+  <p class:hidden={GameOver} class="text-lg">{Timecounter}</p>
+  <p class:hidden={GameOver} class="text-lg">{Found.length}</p>
+  <img class:hidden={!GameOver} class="my-auto" src="img/hero.webp" alt="" />
 </div>
