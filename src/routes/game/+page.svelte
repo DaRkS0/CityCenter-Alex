@@ -10,13 +10,14 @@
   let anchors: AnchorMarker[] = [
     {
       animated: false,
-      type: "Video",
-      path: "https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4",
+      type: "Image",
+      path: "CC.png",
+      // path: "https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4",
       // onload: modelOne,
       // onclick: () => console.log("Cliked On Bar"),
     },
     {
-      animated: true,
+      animated: true,             
       path: "examples/Data/models/bear/scene.gltf",
       onload: modelTwo,
       onclick: () => console.log("Cliked On Bear"),

@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
   import type { AnchorMarker } from "$lib";
-  import { CreateVideoObject } from "./utils";
+  import { CreateVideoObject, CreateImageObject } from "./utils";
   export let imageTargetSrc = "";
   export let maxTrack = 1;
   export let anchors: AnchorMarker[];
@@ -40,6 +40,9 @@
         anchor.group.add(obj.plane);
         anchor.onTargetFound = () => obj.video.play();
         anchor.onTargetLost = () => obj.video.pause();
+      } else if (a.type === "Image") {
+        const obj = await CreateImageObject(a.path);
+        anchor.group.add(obj);
       } else {
         const gltf = await LoadGLTF(a.path);
 
