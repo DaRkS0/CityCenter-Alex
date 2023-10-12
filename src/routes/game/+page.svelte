@@ -77,6 +77,7 @@
     uiScanning="no"
     maxTrack={3}
     {anchors}
+    on:loaded={() => console.log("Ar Ready")}
     bind:AR
   />
 </div>

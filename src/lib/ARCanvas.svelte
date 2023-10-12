@@ -2,7 +2,8 @@
   import * as THREE from "three";
   //import type { MindARThree as ARBase } from "$lib/Mind-Ar/mindar-image-three.prod";
   import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
-  import { onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
+
   import { LoadGLTF, InteractionManager, CreateMixer } from "$lib";
   import type { AnchorMarker } from "$lib";
   import { CreateVideoObject, CreateImageObject } from "./utils";
@@ -13,12 +14,19 @@
   let mixers: THREE.AnimationMixer[] = [];
   let clock = new THREE.Clock();
   export let AR: MindARThree | undefined = undefined;
+  const dispatch = createEventDispatcher<{
+    loaded: {};
+  }>();
   onMount(async () => {
     const mindarThree = new MindARThree({
       container,
       imageTargetSrc,
       maxTrack,
       ...$$props,
+    });
+
+    container.addEventListener("arReady", (event) => {
+      console.log("MindAR is ready");
     });
     const { renderer, scene, camera } = mindarThree;
     AR = mindarThree;
@@ -70,6 +78,13 @@
       });
     };
     await start();
+    dispatch("loaded", {});
+    // const cc = setInterval(() => {
+    //   const loader = document.querySelector(".loader");
+    //   console.log(loader);
+    //   clearInterval(cc);
+    //   //
+    // }, 1000);
   });
 </script>
 
