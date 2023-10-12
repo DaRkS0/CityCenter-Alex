@@ -10,6 +10,7 @@
     ColorGUIHelper,
   } from "$lib";
   import GUI from "lil-gui";
+  import { CreateVideoObject, CreateImageObject } from "$lib/utils";
 
   onMount(async () => {
     const mindarThree = new MindARThree({
@@ -61,6 +62,7 @@
     });
 
     Coinanchor.group.add(Coinangltf.scene);
+    Coinanchor.group.add(await CreateImageObject("CC.png"));
 
     const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
     Beargltf.scene.scale.set(0.1, 0.1, 0.1);
