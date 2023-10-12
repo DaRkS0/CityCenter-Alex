@@ -5,19 +5,40 @@
   import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
   import { afterUpdate } from "svelte";
   import type { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
-
+  import { CreateVideoObject, CreateImageObject } from "$lib/utils";
+  let barDOne = false;
   let AR: MindARThree;
   let anchors: AnchorMarker[] = [
+    // {
+    //   animated: false,
+    //   type: "Model",
+    //   path: "examples/Data/models/bear/scene.gltf",
+    //   // path: "https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4",
+    //   onload: modelOne,
+    //   onclick: async (Coinanchor, model) => {
+    //     const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
+    //     immg.position.set(0, 0, 0.2);
+    //     Coinanchor?.group.add(immg);
+    //     model?.addEventListener("click", () => {});
+    //     // model?.addEventListener("click",undefined);
+    //   },
+    // },
     {
       animated: false,
-      type: "Image",
-      path: "CC.png",
-      // path: "https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4",
-      // onload: modelOne,
-      // onclick: () => console.log("Cliked On Bar"),
+      path: "examples/Data/models/gold-bar/untitled.gltf",
+      onload: modelOne,
+      onclick: async (Coinanchor, model) => {
+        if (!barDOne) {
+          console.log("Cliked On GoldBar");
+          const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
+          immg.position.set(0, 0, 0.2);
+          Coinanchor?.group.add(immg);
+          barDOne = true;
+        }
+      },
     },
     {
-      animated: true,             
+      animated: true,
       path: "examples/Data/models/bear/scene.gltf",
       onload: modelTwo,
       onclick: () => console.log("Cliked On Bear"),

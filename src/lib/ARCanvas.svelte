@@ -55,7 +55,7 @@
         const model = gltf.scene.children[0];
         interactionManager.add(model);
         model.addEventListener("click", () => {
-          if (a.onclick !== undefined && anchor.visible) a.onclick();
+          if (a.onclick !== undefined && anchor.visible) a.onclick(anchor);
         });
         anchor.group.add(gltf.scene);
       }
