@@ -49,6 +49,7 @@ export async function CreateImageObject(path: string, w = 1, h = 1) {
     const planeGeom = new THREE.PlaneGeometry(w, h);
     const texture = new THREE.TextureLoader().load(path);
     const material = new THREE.MeshBasicMaterial({
+      transparent: true,
       map: texture,
     });
     const plane = new THREE.Mesh(planeGeom, material);

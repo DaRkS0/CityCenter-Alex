@@ -60,9 +60,10 @@
     model.addEventListener("click", () => {
       console.log("Cliked On COin");
     });
-
+    const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
+    immg.position.set(0, 0, 0.2);
+    Coinanchor.group.add(immg);
     Coinanchor.group.add(Coinangltf.scene);
-    Coinanchor.group.add(await CreateImageObject("CC.png"));
 
     const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
     Beargltf.scene.scale.set(0.1, 0.1, 0.1);
