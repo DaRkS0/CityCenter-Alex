@@ -1,11 +1,14 @@
 <script lang="ts">
   import type { AnchorMarker } from "$lib";
   import ARCanvas from "$lib/ARCanvas.svelte";
-
   import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
   import { afterUpdate } from "svelte";
   import type { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { CreateVideoObject, CreateImageObject } from "$lib/utils";
+
+  const TimeLimst = 60;
+  let GameOver = false;
+  let Found: number[] = [];
   let barDOne = false;
   let AR: MindARThree;
   let anchors: AnchorMarker[] = [
@@ -28,12 +31,12 @@
       path: "examples/Data/models/gold-bar/untitled.gltf",
       onload: modelOne,
       onclick: async (Coinanchor, model) => {
-        if (!barDOne) {
+        if (Coinanchor && !Found.includes(Coinanchor.targetIndex)) {
           console.log("Cliked On GoldBar");
           const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
           immg.position.set(0, 0, 0.2);
           Coinanchor?.group.add(immg);
-          barDOne = true;
+          Found.push(Coinanchor.targetIndex);
         }
       },
     },
@@ -81,4 +84,5 @@
   class="absolute z-50 inset-0 pointer-events-none w-full h-full overflow-hidden flex flex-col items-center pt-7 px-12"
 >
   <img src="img/title.webp" alt="" />
+  <!-- <img class="my-auto" src="img/hero.webp" alt="" /> -->
 </div>
