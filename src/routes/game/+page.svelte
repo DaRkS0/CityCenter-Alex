@@ -100,4 +100,8 @@
   <p class:hidden={GameOver} class="text-lg">{Timecounter}</p>
   <p class:hidden={GameOver} class="text-lg">{Found.length}</p>
   <img class:hidden={!GameOver} class="my-auto" src="img/hero.webp" alt="" />
+  <div class="flex">
+    <img class="my-auto" src="img/found.webp" alt="" />
+    <p class="text-lg">{Found.length}</p>
+  </div>
 </div>
