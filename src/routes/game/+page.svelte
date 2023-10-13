@@ -2,10 +2,10 @@
   import type { AnchorMarker } from "$lib";
   import ARCanvas from "$lib/ARCanvas.svelte";
   import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
   import type { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { CreateVideoObject, CreateImageObject } from "$lib/utils";
-
+  import { page } from "$app/stores";
   const TimeLimst = 60;
   let GameOver = false;
   let Found: number[] = [];
@@ -13,7 +13,9 @@
   let AR: MindARThree;
   let Timecounter = 60;
   let Barcounter = 0;
-
+  onMount(() => {
+    console.log($page.url.searchParams.get("uid"));
+  });
   let anchors: AnchorMarker[] = [
     // {
     //   animated: false,
@@ -72,6 +74,28 @@
     //   AR.stop();
     // }, 15000);
   });
+
+  function GetMarkrs() {
+    let group: AnchorMarker[] = [];
+    for (let index = 0; index < 16; index++) {
+      const test: AnchorMarker = {
+        animated: false,
+        path: "examples/Data/models/gold-bar/untitled.gltf",
+        onload: modelOne,
+        onclick: async (Coinanchor, model) => {
+          if (Coinanchor && !Found.includes(Coinanchor.targetIndex)) {
+            console.log("Cliked On GoldBar");
+            const immg = await CreateImageObject("pngwing.com.png", 0.6, 0.6);
+            immg.position.set(0, 0, 0.2);
+            Coinanchor?.group.add(immg);
+            Found = [...Found, Coinanchor.targetIndex];
+          }
+        },
+      };
+      group.push(test);
+    }
+    return group;
+  }
 </script>
 
 <div class:hidden={GameOver} class=" w-full h-full overflow-hidden">
@@ -79,15 +103,15 @@
     imageTargetSrc="examples/targets.mind"
     uiScanning="no"
     maxTrack={3}
-    {anchors}
+    anchors={GetMarkrs()}
     on:loaded={() => {
       console.log("Ar Ready");
       gameStart = true;
       const key = setInterval(async () => {
         if (--Timecounter === 0) {
           clearInterval(key);
-          await AR.stop();
-          GameOver = true;
+          // await AR.stop();
+          // GameOver = true;
         }
       }, 1000);
     }}
