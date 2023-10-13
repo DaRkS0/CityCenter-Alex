@@ -78,7 +78,7 @@
 
   function GetMarkrs() {
     let group: AnchorMarker[] = [];
-    for (let index = 0; index < 16; index++) {
+    for (let index = 0; index < 17; index++) {
       const test: AnchorMarker = {
         animated: false,
         type: "Image",
