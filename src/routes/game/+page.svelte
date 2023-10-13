@@ -101,7 +101,6 @@
 <div class:hidden={GameOver} class=" w-full h-full overflow-hidden">
   <ARCanvas
     imageTargetSrc="examples/targets.mind"
-    uiScanning="no"
     maxTrack={3}
     anchors={GetMarkrs()}
     on:loaded={() => {
