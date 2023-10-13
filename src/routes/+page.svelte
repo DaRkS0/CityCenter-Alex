@@ -1,6 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
-  import { NewDoc } from "$lib/firebase/database/client";
+  import { NewDocWithCustomID, GetDoc } from "$lib/firebase/database/client";
 
   let name = "";
   let email = "";
@@ -12,12 +12,19 @@
       alert("Invalid phone number");
       return;
     }
-    const info = await NewDoc("Invitees", {
+    const docc = await GetDoc("Invitees", phone);
+
+    if (docc.exists()) {
+      alert("user Already exists");
+      return;
+    }
+
+    const info = await NewDocWithCustomID("Invitees", phone, {
       name,
       email,
       phone,
     });
-    goto("game?uid=" + info.id);
+    goto("game?uid=" + phone);
   }
 </script>
 

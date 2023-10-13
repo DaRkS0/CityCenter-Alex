@@ -7,19 +7,28 @@
   import type { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
   import { secondsToMinutesAndSeconds, CreateImageObject } from "$lib/utils";
   import { page } from "$app/stores";
+  import { UpdateDoc, GetDoc } from "$lib/firebase/database/client";
+  import { goto } from "$app/navigation";
+
   const TimeLimst = 60;
   let GameOver = false;
   let Found: number[] = [];
   let gameStart = false;
   let AR: MindARThree;
-  let Timecounter = 120;
+  let Timecounter = 90;
   let TimeString = "";
   let Barcounter = 0;
 
-  onMount(() => {
+  onMount(async () => {
     const time = secondsToMinutesAndSeconds(Timecounter);
     TimeString = `${time.minutes}:${time.seconds}`;
-    console.log($page.url.searchParams.get("uid"));
+
+    const info = await GetDoc(
+      "Invitees",
+      $page.url.searchParams.get("uid") ?? "Temp"
+    );
+    if (!info.exists() || (info.exists() && info.get("score") !== undefined))
+      goto(".");
   });
 
   function modelOne(gltf: GLTF) {
@@ -83,6 +92,14 @@
           if (scan !== null) {
             scan.style.display = "none";
           }
+
+          const info = await UpdateDoc(
+            "Invitees",
+            $page.url.searchParams.get("uid") ?? "Temp",
+            {
+              score: Found.length,
+            }
+          );
         }
         const time = secondsToMinutesAndSeconds(Timecounter);
         TimeString = `${time.minutes}:${time.seconds}`;
