@@ -30,7 +30,9 @@
     });
     const { renderer, scene, camera } = mindarThree;
     AR = mindarThree;
-    let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
+    // let directionalLight = new THREE.DirectionalLight("#fff", 0.6);
+    let directionalLight = new THREE.DirectionalLight("#fff", 1.3);
+
     directionalLight.position.set(0.5, 0, 0.866);
     scene.add(directionalLight);
 
