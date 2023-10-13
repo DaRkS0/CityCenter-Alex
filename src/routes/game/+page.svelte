@@ -9,7 +9,7 @@
   const TimeLimst = 60;
   let GameOver = false;
   let Found: number[] = [];
-  let barDOne = false;
+  let gameStart = false;
   let AR: MindARThree;
   let Timecounter = 60;
   let Barcounter = 0;
@@ -82,6 +82,7 @@
     {anchors}
     on:loaded={() => {
       console.log("Ar Ready");
+      gameStart = true;
       const key = setInterval(async () => {
         if (--Timecounter === 0) {
           clearInterval(key);
@@ -97,11 +98,23 @@
   class="absolute z-50 inset-0 pointer-events-none w-full h-full overflow-hidden flex flex-col items-center pt-7 px-12 gap-8"
 >
   <img src="img/title.webp" alt="" />
-  <p class:hidden={GameOver} class="text-lg">{Timecounter}</p>
-  <p class:hidden={GameOver} class="text-lg">{Found.length}</p>
+  <div class="w-full">
+    <p
+      class:hidden={GameOver || !gameStart}
+      class="text-2xl text-white text-left mb-2"
+    >
+      {Timecounter}
+    </p>
+    <!-- <p class:hidden={GameOver} class="text-lg text-left">{Found.length}</p> -->
+  </div>
+
   <img class:hidden={!GameOver} class="my-auto" src="img/hero.webp" alt="" />
-  <div class="flex">
+
+  <div
+    class:hidden={!GameOver}
+    class="flex items-center gap-4 max-w-full px-8 mb-auto"
+  >
     <img class="my-auto" src="img/found.webp" alt="" />
-    <p class="text-lg">{Found.length}</p>
+    <p class="text-2xl text-white">{Found.length}</p>
   </div>
 </div>
