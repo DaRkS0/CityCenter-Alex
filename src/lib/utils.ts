@@ -58,6 +58,15 @@ export async function CreateImageObject(path: string, w = 1, h = 1) {
   });
 }
 
+export function secondsToMinutesAndSeconds(totalSeconds: number) {
+  let minutes = Math.floor(totalSeconds / 60);
+  let seconds = totalSeconds % 60;
+
+  return {
+    minutes,
+    seconds,
+  };
+}
 export class ColorGUIHelper {
   object: any;
   prop: any;

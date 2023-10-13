@@ -59,6 +59,9 @@
         obj.addEventListener("click", () => {
           if (a.onclick !== undefined && anchor.visible) a.onclick(anchor);
         });
+        anchor.onTargetFound = () => {
+          if (a.onclick !== undefined && anchor.visible) a.onclick(anchor);
+        };
         anchor.group.add(obj);
       } else {
         const gltf = await LoadGLTF(a.path);
