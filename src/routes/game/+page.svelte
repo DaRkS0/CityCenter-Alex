@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as THREE from "three";
   import type { AnchorMarker } from "$lib";
   import ARCanvas from "$lib/ARCanvas.svelte";
   import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
@@ -80,8 +81,12 @@
     for (let index = 0; index < 16; index++) {
       const test: AnchorMarker = {
         animated: false,
-        path: "examples/Data/models/gold-bar/untitled.gltf",
-        onload: modelOne,
+        type: "Image",
+        path: "print-03.png",
+        onload: (model) => {
+          const ss = model as THREE.Object3D;
+          ss.scale.set(0.6, 0.6, 0.6);
+        },
         onclick: async (Coinanchor, model) => {
           if (Coinanchor && !Found.includes(Coinanchor.targetIndex)) {
             console.log("Cliked On GoldBar");

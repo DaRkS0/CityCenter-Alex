@@ -51,7 +51,14 @@
         anchor.onTargetFound = () => obj.video.play();
         anchor.onTargetLost = () => obj.video.pause();
       } else if (a.type === "Image") {
-        const obj = await CreateImageObject(a.path);
+        //549 239
+        const obj = await CreateImageObject(a.path, 1, 239 / 549);
+
+        if (a.onload !== undefined) a.onload(obj);
+        interactionManager.add(obj);
+        obj.addEventListener("click", () => {
+          if (a.onclick !== undefined && anchor.visible) a.onclick(anchor);
+        });
         anchor.group.add(obj);
       } else {
         const gltf = await LoadGLTF(a.path);

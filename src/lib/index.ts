@@ -11,7 +11,7 @@ export type AnchorMarker = {
   animated: boolean;
   path: string;
   type?: "Model" | "Video" | "Image";
-  onload?: (gltf: GLTF) => void | Promise<void> | undefined;
+  onload?: (gltf: GLTF | THREE.Object3D) => void | Promise<void> | undefined;
   onclick?: (
     anchor?: ARAnchor,
     model?: Object3D<Object3DEventMap>
