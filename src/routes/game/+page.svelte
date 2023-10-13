@@ -27,8 +27,8 @@
       "Invitees",
       $page.url.searchParams.get("uid") ?? "Temp"
     );
-    if (!info.exists() || (info.exists() && info.get("score") !== undefined))
-      goto(".");
+    // if (!info.exists() || (info.exists() && info.get("score") !== undefined))
+    //   goto(".");
   });
 
   function modelOne(gltf: GLTF) {
@@ -93,13 +93,13 @@
             scan.style.display = "none";
           }
 
-          const info = await UpdateDoc(
-            "Invitees",
-            $page.url.searchParams.get("uid") ?? "Temp",
-            {
-              score: Found.length,
-            }
-          );
+          // const info = await UpdateDoc(
+          //   "Invitees",
+          //   $page.url.searchParams.get("uid") ?? "Temp",
+          //   {
+          //     score: Found.length,
+          //   }
+          // );
         }
         const time = secondsToMinutesAndSeconds(Timecounter);
         TimeString = `${time.minutes}:${time.seconds}`;
