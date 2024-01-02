@@ -16,7 +16,7 @@
     const mindarThree = new MindARThree({
       //container: document.body,
       container: document.querySelector("#container"),
-      imageTargetSrc: "examples/targets.mind",
+      imageTargetSrc: "examples/band.mind",
       maxTrack: 3,
     });
     const { renderer, scene, camera } = mindarThree;
@@ -65,7 +65,9 @@
     Coinanchor.group.add(immg);
     Coinanchor.group.add(Coinangltf.scene);
 
-    const Beargltf = await LoadGLTF("examples/Data/models/bear/scene.gltf");
+    const Beargltf = await LoadGLTF(
+      "examples/Data/models/Coca-Cola_Bottle.glb"
+    );
     Beargltf.scene.scale.set(0.1, 0.1, 0.1);
     Beargltf.scene.position.set(0, -0.4, 0);
     Bearanchor.group.add(Beargltf.scene);
@@ -84,7 +86,7 @@
     let clock = new THREE.Clock();
     let mixers = [];
     // mixers.push(await CreateMixer(Coinangltf));
-    mixers.push(await CreateMixer(Beargltf));
+    //mixers.push(await CreateMixer(Beargltf));
     mixers.push(await CreateMixer(Racoongltf));
 
     // const model = gltf.scene.children[0];
