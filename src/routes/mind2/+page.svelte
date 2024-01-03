@@ -18,6 +18,7 @@
       container: document.querySelector("#container"),
       imageTargetSrc: "examples/band.mind",
       maxTrack: 3,
+      filterMinCF: 0.0005,
     });
     const { renderer, scene, camera } = mindarThree;
 
