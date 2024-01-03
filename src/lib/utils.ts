@@ -11,10 +11,11 @@ export function LoadGLTF(path: string) {
   });
 }
 
-export function CreateMixer(gl: GLTF, idx = 0) {
+export function CreateMixer(gl: GLTF, idx = 0, debug = false) {
   return new Promise<THREE.AnimationMixer>((resolve) => {
+    if (debug) console.log(gl.animations);
     const mixer = new THREE.AnimationMixer(gl.scene.children[idx]);
-    const action = mixer.clipAction(gl.animations[idx]);
+    const action = mixer.clipAction(gl.animations[0]);
     action.play();
     resolve(mixer);
   });

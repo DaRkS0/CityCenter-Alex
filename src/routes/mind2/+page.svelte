@@ -85,7 +85,7 @@
     let clock = new THREE.Clock();
     let mixers = [];
     // mixers.push(await CreateMixer(Coinangltf));
-    mixers.push(await CreateMixer(Beargltf));
+    mixers.push(await CreateMixer(Beargltf, 0, false));
     mixers.push(await CreateMixer(Beargltf, 1));
     mixers.push(await CreateMixer(Beargltf, 2));
     mixers.push(await CreateMixer(Racoongltf));
