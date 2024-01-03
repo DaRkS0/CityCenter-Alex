@@ -86,6 +86,8 @@
     let mixers = [];
     // mixers.push(await CreateMixer(Coinangltf));
     mixers.push(await CreateMixer(Beargltf));
+    mixers.push(await CreateMixer(Beargltf, 1));
+    mixers.push(await CreateMixer(Beargltf, 2));
     mixers.push(await CreateMixer(Racoongltf));
 
     // const model = gltf.scene.children[0];
