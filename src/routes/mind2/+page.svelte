@@ -66,9 +66,9 @@
     Coinanchor.group.add(Coinangltf.scene);
 
     const Beargltf = await LoadGLTF(
-      "examples/Data/models/Coca-Cola_Bottle.glb"
+      "examples/Data/models/Coca-cocacola/Animated_001.gltf"
     );
-    Beargltf.scene.scale.set(0.1, 0.1, 0.1);
+    Beargltf.scene.scale.set(0.2, 0.2, 0.2);
     Beargltf.scene.position.set(0, -0.4, 0);
     Bearanchor.group.add(Beargltf.scene);
 
@@ -86,7 +86,7 @@
     let clock = new THREE.Clock();
     let mixers = [];
     // mixers.push(await CreateMixer(Coinangltf));
-    //mixers.push(await CreateMixer(Beargltf));
+    mixers.push(await CreateMixer(Beargltf));
     mixers.push(await CreateMixer(Racoongltf));
 
     // const model = gltf.scene.children[0];
