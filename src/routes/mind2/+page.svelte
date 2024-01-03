@@ -66,9 +66,7 @@
     Coinanchor.group.add(immg);
     Coinanchor.group.add(Coinangltf.scene);
 
-    const Beargltf = await LoadGLTF(
-      "examples/Data/models/Coca-cocacola/Animated_001.gltf"
-    );
+    const Beargltf = await LoadGLTF("cocacola/Animated_001.gltf");
     Beargltf.scene.scale.set(0.2, 0.2, 0.2);
     Beargltf.scene.position.set(0, -0.4, 0);
     Bearanchor.group.add(Beargltf.scene);
