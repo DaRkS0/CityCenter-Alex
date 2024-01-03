@@ -85,7 +85,7 @@
     let clock = new THREE.Clock();
     let mixers = [];
 
-    Beargltf.scene.rotateY(Math.PI);
+    Beargltf.scene.rotateY(Math.PI * 1.5);
     // mixers.push(await CreateMixer(Coinangltf));
     mixers.push(await CreateMixer(Beargltf, 0, false));
     mixers.push(await CreateMixer(Beargltf, 1));
