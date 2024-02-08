@@ -66,8 +66,8 @@
     Coinanchor.group.add(immg);
     Coinanchor.group.add(Coinangltf.scene);
 
-    const Beargltf = await LoadGLTF("cocacola/Animated_001.gltf");
-    Beargltf.scene.scale.set(0.2, 0.2, 0.2);
+    const Beargltf = await LoadGLTF("cocacola/Coca_cola_bottle.glb");
+    Beargltf.scene.scale.set(0.1, 0.1, 0.1);
     Beargltf.scene.position.set(0, -0.4, 0);
     Bearanchor.group.add(Beargltf.scene);
 
@@ -87,9 +87,15 @@
 
     Beargltf.scene.rotateY(Math.PI * 1.5);
     // mixers.push(await CreateMixer(Coinangltf));
-    mixers.push(await CreateMixer(Beargltf, 0, false));
-    mixers.push(await CreateMixer(Beargltf, 1));
-    mixers.push(await CreateMixer(Beargltf, 2));
+    for (let index = 0; index < Beargltf.scene.children.length; index++) {
+      mixers.push(await CreateMixer(Beargltf, index, false));
+    }
+    // mixers.push(await CreateMixer(Beargltf, 0, false));
+    // mixers.push(await CreateMixer(Beargltf, 1));
+    // mixers.push(await CreateMixer(Beargltf, 2));
+    // mixers.push(await CreateMixer(Beargltf, 3));
+    // mixers.push(await CreateMixer(Beargltf, 4));
+    // mixers.push(await CreateMixer(Beargltf, 5));
     mixers.push(await CreateMixer(Racoongltf));
 
     // const model = gltf.scene.children[0];
