@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   // @ts-ignore
-
+  import "./style.css";
   import { onMount } from "svelte";
 
   // https://html-classic.itch.zone/html/9694083/Build/Build%20test%202.framework.js
@@ -18,10 +18,29 @@
     // showBanner: unityShowBanner,
   };
   let canvas;
+  let mobile = false;
   onMount(async () => {
-    /* @vite-ignore */
-    // await import(loaderUrl);
-    // createUnityInstance(canvas, config);
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      // Mobile device style: fill the whole browser client area with the game canvas:
+      mobile = true;
+      const meta = document.getElementsByName("viewport")[0];
+
+      // var meta = document.createElement("meta");
+
+      // meta.name = "viewport";
+      meta.content =
+        "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
+      // document.getElementsByTagName("head")[0].appendChild(meta);
+      //   container.className = "unity-mobile";
+      //   canvas.className = "unity-mobile";
+
+      // To lower canvas resolution on mobile devices to gain some
+      // performance, uncomment the following line:
+      // config.devicePixelRatio = 1;
+
+      //unityShowBanner('WebGL builds are not supported on mobile devices.');
+    }
+
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
@@ -32,8 +51,17 @@
 </script>
 
 <div class="h-full w-full">
-  <div id="unity-container" class="unity-desktop">
-    <canvas bind:this={canvas} id="unity-canvas" width="960" height="600"
+  <div
+    id="unity-container"
+    class:unity-desktop={!mobile}
+    class:unity-mobile={mobile}
+  >
+    <canvas
+      bind:this={canvas}
+      class:unity-mobile={mobile}
+      id="unity-canvas"
+      width="960"
+      height="600"
     ></canvas>
     <div id="unity-loading-bar">
       <div id="unity-logo"></div>
