@@ -6,11 +6,11 @@
 
   // https://html-classic.itch.zone/html/9694083/Build/Build%20test%202.framework.js
   let buildUrl = "/build";
-  let loaderUrl = buildUrl + "/Build test 2.loader.js";
+  let loaderUrl = buildUrl + "/Build 3.loader.js";
   let config = {
-    dataUrl: buildUrl + "/Build test 2.data",
-    frameworkUrl: buildUrl + "/Build test 2.framework.js",
-    codeUrl: buildUrl + "/Build test 2.wasm",
+    dataUrl: buildUrl + "/Build 3.data",
+    frameworkUrl: buildUrl + "/Build 3.framework.js",
+    codeUrl: buildUrl + "/Build 3.wasm",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "Coca Cola Augmented Reality",
@@ -19,6 +19,7 @@
   };
   let canvas;
   let mobile = false;
+  let loaded = false;
   onMount(async () => {
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       // Mobile device style: fill the whole browser client area with the game canvas:
@@ -44,7 +45,13 @@
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
-      createUnityInstance(canvas, config);
+      createUnityInstance(canvas, config, (prog) => {
+        if (prog >= 1) {
+          setTimeout(() => {
+            loaded = true;
+          }, 3500);
+        }
+      });
     };
     document.body.appendChild(script);
   });
@@ -75,5 +82,15 @@
       <div id="unity-fullscreen-button"></div>
       <div id="unity-build-title">Coca Cola Augmented Reality</div>
     </div>
+  </div>
+  <div
+    class:hidden={loaded}
+    class="absolute z-20 inset-0 w-full h-full flex items-center justify-center bg-black gap-5"
+  >
+    <div
+      class="w-12 h-12 rounded-full animate-spin border-y-4 border-solid border-pink-500 border-t-transparent shadow-md"
+    ></div>
+
+    <p class="text-white text-2xl">Loading..</p>
   </div>
 </div>
